@@ -29,11 +29,6 @@ public class ParseFile {
 
         if (null == files)
             files = new File[0];
-        return files;
-    }
-
-    static File find_latest_file() {
-        File[] files = find_data_files();
 
         Arrays.sort(files, 0, files.length, new Comparator<File>() {
             @Override
@@ -41,6 +36,14 @@ public class ParseFile {
                 return -o1.getAbsolutePath().compareTo(o2.getAbsolutePath());
             }
         });
+
+        return files;
+    }
+
+    static File find_latest_file() {
+        File[] files = find_data_files();
+        if (files.length == 0)
+            return null;
 
         return files[0];
     }
@@ -95,6 +98,15 @@ public class ParseFile {
             if (ss.get(i).trim().startsWith("<td>")) {
                 // <td>04/02/2019</td><td>97659</td><td>Rhön-Grabfeld</td><td>Schönau a.d.Brend</td><td>1024</td><td>33</td>    </tr>
                 String parts[] = ss.get(i).replace("<td>", "").trim().split("</td>");
+                if (parts.length < 6)
+                    continue;
+
+                // Remove the dot that separates thousands
+                parts[4] = parts[4].replace(".", "").trim();
+                parts[5] = parts[5].replace(".", "").trim();
+
+                if (parts[4].isEmpty() || parts[5].isEmpty())
+                    continue;
 
                 try {
                     String[] other = plz_to_data.get(parts[1]);
