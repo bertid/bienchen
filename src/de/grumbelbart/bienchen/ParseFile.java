@@ -110,8 +110,10 @@ public class ParseFile {
                 if (parts[4].isEmpty() || parts[5].isEmpty())
                     continue;
 
+                String FullName = parts[1] + parts[2] + parts[3];
+
                 try {
-                    String[] other = plz_to_data.get(parts[1]);
+                    String[] other = plz_to_data.get(FullName);
                     if (null != other) {
                         duplicates++;
                         int voted_old = Integer.parseInt(other[5]);
@@ -120,7 +122,7 @@ public class ParseFile {
                             continue;
                         }
                     }
-                    plz_to_data.put(parts[1], parts);
+                    plz_to_data.put(FullName, parts);
 
                 } catch (Exception e) {
                 }
