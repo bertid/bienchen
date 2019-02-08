@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 public class ParseFile {
     static final String path1 = "/Users/floh/Documents/code/bienchen/";
     static final String path2 = "h:/temp/bienchen/bienchen/";
-    static final String path3 = "K:/P_bravo/bienchen/bienchen/";
+    static final String path3 = "K:/P_bravo/bienchen/";
 
     static File[] find_data_files() {
         File dir = new File(path1);
@@ -22,6 +22,8 @@ public class ParseFile {
             dir = new File(path2);
         if (!dir.exists())
             dir = new File(path3);
+        if (!dir.exists())
+            throw new RuntimeException("Unable to find data path");
 
         File files[] = dir.listFiles(new FilenameFilter() {
             @Override
