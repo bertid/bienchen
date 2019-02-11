@@ -120,6 +120,7 @@ public class ParseFile {
                 try {
                     String[] other = plz_to_data.get(FullName);
                     if (null != other) {
+                    	System.out.println("Duplikat: " + FullName);
                         duplicates++;
                         int voted_old = Integer.parseInt(other[5]);
                         int voted_new = Integer.parseInt(parts[5]);
@@ -157,7 +158,7 @@ public class ParseFile {
             }
         }
 
-        System.out.println("Insgesamt " + good_entries + " Gemeinden (" + duplicates + " Duplikate), mit " + sum_total
+        System.out.println("Insgesamt " + good_entries + " Gemeinden (" + duplicates + " Duplikat(e)), mit " + sum_total
                         + " Stimmberechtigten, Unterschrieben haben: " + sum_voted + ", ratio = "
                         + (100.0 * sum_voted / sum_total));
     }
